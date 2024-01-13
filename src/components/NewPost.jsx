@@ -1,22 +1,14 @@
-import { useState } from 'react';
-
-const NewPost = () => {
-  const [enteredBody, setEnteredBody] = useState('');
-
-  function changeBodyHandler(event){
-    setEnteredBody(event.target.value);
-  }
-
+const NewPost = (props) => {
+  
   return (
     <form>
         <p>
             <label htmlFor="body">Text</label>
-            <textarea id="body" required rows={3} onChange={changeBodyHandler}></textarea>
+            <textarea id="body" required rows={3} onChange={props.onBodyChange}></textarea>
         </p>
-        <p>{enteredBody}</p>
         <p>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" required />
+            <input type="text" id="name" required onChange={props.onAuthorChange} />
         </p>
     </form>
   )
