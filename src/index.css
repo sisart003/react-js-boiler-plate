@@ -1,0 +1,9 @@
+.borderito{
+  border: 1px solid red;
+  padding: 1rem;
+}
+
+ul li{
+  list-style-type: none;
+  margin-top: 1rem;
+}
