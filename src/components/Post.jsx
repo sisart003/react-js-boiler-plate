@@ -1,8 +1,8 @@
-const Post = (props) => {
+const Post = ({author, body}) => {
     return (
-        <li className="borderito">
-            <h1>{props.author}</h1>
-            <p>{props.body}</p>
+        <li>
+            <h1>{author}</h1>
+            <p>{body}</p>
         </li>
     )
 }

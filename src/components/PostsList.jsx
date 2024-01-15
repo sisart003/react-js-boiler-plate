@@ -1,42 +1,35 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
 import Post from './Post';
 import NewPost from './NewPost';
 import Modal from './Modal';
 
 const PostsList = ({isPosting, onStopPosting}) => {
-  
-  const [enteredBody, setEnteredBody] = useState('');
-  const [enteredAuthor, setEnteredAuthor] = useState('');
+  const [posts, setPosts] = useState([]);
 
-  function bodyChangeHandler(event){
-    setEnteredBody(event.target.value);
+  function addPostHandler(postData){
+    setPosts((existingPosts) => [postData, ...existingPosts]);
   }
-
-  function authorChangeHandler(event){
-    setEnteredAuthor(event.target.value);
-  }
-
-  // let modalContent;
-
-  // if(modalIsVisible){
-  //     modalContent = (
-  //       <Modal onClose={hideModalHandler}>
-  //         <NewPost onBodyChange={bodyChangeHandler} onAuthorChange={authorChangeHandler} />
-  //       </Modal>
-  //     )
-  // }
 
   return (
     <>  
         {isPosting && (
           <Modal onClose={onStopPosting}>
-            <NewPost onBodyChange={bodyChangeHandler} onAuthorChange={authorChangeHandler} />
+            <NewPost onCancel={onStopPosting} onAddPost={addPostHandler} />
           </Modal>
         )}
-        <ul>
-            <Post author={enteredAuthor} body={enteredBody} />
-        </ul>
+        {posts.length > 0 && (
+          <ul>
+            {posts.map((post) => <Post key={post.body} author={post.author} body={post.body} />)}
+          </ul>
+        )}
+        {posts.length === 0 && (
+          <div styles={{ textAlign: 'center', color: 'white'}}>
+            <h2>There are no post yet!</h2>
+            <p>post first!</p>
+          </div>
+        )}
+        
     </>
    
   )
